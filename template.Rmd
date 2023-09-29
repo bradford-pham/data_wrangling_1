@@ -2,4 +2,72 @@
 title: "Simple document"
 output: github_document
 ---
+```{r}
+library(tidyverse)
+```
+Let's import the 'FAS_litters.csv' csv. using a relative path 
+
+```{r}
+litters_df =
+  read_csv("DATA/FAS_litters.csv")
+
+litters_df =
+  janitor::clean_names(litters_df)
+
+litters_df
+
+
+```
+
+import the same dataset using an absolute path 
+
+```{r}
+litters_df_abs=
+  read_csv("~/desktop/r - work/data_wrangling_1/data/FAS_litters.csv")
+
+litters_df_abs=
+  janitor::clean_names(litters_df_abs)
+
+litters_df
+
+
+```
+
+import pups dataset 
+
+```{r}
+pups_df =
+  read_csv("DATA/FAS_pups.csv")
+pups_df =
+  janitor::clean_names(pups_df)
+
+```
+
+
+### look at data
+
+```{r}
+litters_df
+head(litters_df)
+```
+
+you can use 'view'
+
+```{r, eval = FALSE}
+view(litters_df)
+```
+
+```{r}
+str(litters_df)
+```
+
+
+
+
+
+
+
+
+
+
 
