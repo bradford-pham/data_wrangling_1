@@ -1,64 +1,57 @@
 ---
-title: "Simple document"
-output: word_document
+title: "Data manipulation"
+output: github_document
 ---
 ```{r}
 library(tidyverse)
 ```
 
-
-
-
-I'm an R Markdown document! 
-
-# Section 1 First code chunk
-
-Here's a **code chunk** that samples from 
-a _normal distribution_:
+```{r}
+litters_df =
+  read_csv("data/FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
+```
 
 ```{r}
-samp = rnorm(100)
-length(samp)
+pups_df =
+  read_csv("data/FAS_pups.csv")
+pups_df = janitor::clean_names(pups_df)
+```
 ```
 
-# Section 2 make a plot 
-
-This code is borrowed from last lecture; it creates a dataframe for plotting 
+## 
+'select' is used to select colums! 
 
 ```{r}
-plot_df = 
-  tibble(
-    x = rnorm(1000, sd = 0.5),
-    y = 1 + 2 * x +rnorm(1000)
-  )
+select(litters_df, group, litter_number, gd0_weight)
+
+select(litters_df, group, gd0_weight:gd_of_birth)
+
+select(litters_df, group, starts_with("pups"))
+
+select(litters_df, -litter_number)
+select(litters_df, -starts_with ("gd"))
+
+select(litters_df, group, litter_id = litter_number)
+
+select(litters_df, group, litters_id = litter_number, everything())
+
+select(litters_df, gd0_weight, everything())
 ```
-
-
-
-
-next up is a histogram of the 'x' variable in 'plo_df'
 
 ```{r}
-ggplot(plot_df, aes(x = x)) + geom_histogram()
+rename(litters_df, litter_id = litter_number)
+
+relocate (litters_df, litter_number)
 ```
 
-lastly, i'll do a scatterplot
+
+
+
+'select' vs 'pull'
+
 ```{r}
-ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+select(litters_df, group)
+pull(litters_df, group)
 ```
 
-#section 3: learning assessment!
-```{r la_df}
-la_df = 
-  tibble(
-    num_samp = rnorm(500, mean = 1),
-    logical_vec = num_samp > 0,
-    abs_val = abs(num_samp)
-  )
-ggplot(la_df, aes(x = abs_val)) + geom_histogram()
-```
-
-#section 
-
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
