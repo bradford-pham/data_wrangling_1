@@ -61,10 +61,16 @@ view(litters_df)
 str(litters_df)
 ```
 
+```{r}
+skimr::skim(litters_df)
+```
+
+## options in read
 
 
-
-
+```{r}
+skimr::skim(litters_df)
+```
 
 
 
