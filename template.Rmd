@@ -4,6 +4,8 @@ output: github_document
 ---
 ```{r}
 library(tidyverse)
+library(readxl)
+library(haven)
 ```
 Let's import the 'FAS_litters.csv' csv. using a relative path 
 
@@ -70,10 +72,61 @@ skimr::skim(litters_df)
 
 ```{r}
 skimr::skim(litters_df)
+
+litters_df=
+  read_csv ("DATA/FAS_litters.csv",
+            skip = 10)
 ```
 
+look at NA values.
 
+```{r}
+litters_df =
+  read_csv(
+    "DATA/FAS_litters.csv",
+    na = c("NA",19))
+```
 
+Column types 
 
+```{r}
+litters_df =
+  read_csv("DATA/FAS_litters.csv",
+           col_types = 
+             cols(
+               'GD0 Weight' = col_factor()
+             ))
+```
+
+#other file types 
+
+import a xlsx file first 
+
+```{r}
+mlb_df =
+  read_excel("data/mlb11.xlsx")
+```
+
+import a sas file 
+```{r}
+pulse_df =
+  read_sas("data/public_pulse_data.sas7bdat")
+```
+
+##base r 
+
+## export data
+
+We have code that "cleans" data and need to export the result. 
+
+```{r}
+litters_df_cleaned =
+  read_csv("data/FAS_litters.csv")
+
+litters_df_cleaned =
+  janitor::clean_names(litters_df_cleaned)
+
+write_csv(litters_df_cleaned, "data/litters_cleaned.csv")
+```
 
 
